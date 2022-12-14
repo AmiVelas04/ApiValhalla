@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.33027.164
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiValhalla", "ApiValhalla.csproj", "{0D999DAD-7382-4025-9352-675B5595B2EF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0D999DAD-7382-4025-9352-675B5595B2EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D999DAD-7382-4025-9352-675B5595B2EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D999DAD-7382-4025-9352-675B5595B2EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D999DAD-7382-4025-9352-675B5595B2EF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5298FA2E-44B1-4BAA-8A41-266B43135E82}
+	EndGlobalSection
+EndGlobal
