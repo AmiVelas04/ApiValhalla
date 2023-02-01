@@ -8,6 +8,7 @@ namespace ApiValhalla.Models
 {
     public class ClienteModel
     {
+        [Key]
         public int Id_cliente { get; set; }
         public string? Nombre { get; set; }
         public string? Direccion { get; set; }

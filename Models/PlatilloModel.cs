@@ -9,7 +9,7 @@ namespace ApiValhalla.Models
     public class PlatilloModel
     {
         [Key]
-        [Required]
+    
         public int Id_plat { get; set; }
         public int Id_cat { get; set; }
         public int Id_subcat { get; set; }

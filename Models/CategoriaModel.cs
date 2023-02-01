@@ -10,7 +10,7 @@ namespace ApiValhalla.Models
     {
         [Key]
         public int Id_cat { get; set; }
-        public string? Nombre { get; set; }
+        public string Nombre { get; set; }
 
     }
 }

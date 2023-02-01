@@ -9,10 +9,9 @@ namespace ApiValhalla.Models
     public class Coma_cliModel
     {
         [Key]
-        [Required]
+      
         public int Id_cliente { get; set; }
-        [Key]
-        [Required]
+  
         public int Id_comanda { get; set; }
 
     }

@@ -9,7 +9,7 @@ namespace ApiValhalla.Models
     public class ComandaModel
     {
         [Key]
-        [Required]
+ 
         public int Id_comanda { get; set; }
         public int Numero { get; set; }
 

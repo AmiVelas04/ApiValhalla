@@ -9,10 +9,9 @@ namespace ApiValhalla.Models
     public class Plati_detaModel
     {
         [Key]
-        [Required]
+
         public int Id_deta { get; set; }
-        [Key]
-        [Required]
+       
         public int Id_plati { get; set; }
 
     }
