@@ -33,11 +33,11 @@ namespace ApiValhalla.Controllers
 
         [HttpGet]
         [Route("AllSubCat/{cat}")]
-        public ActionResult GetSubCat(string cat)
+        public ActionResult GetSubCat(int cat)
         {
             try
             {
-                return Ok(_context.SubCategoria.Where(o => o.Id_cat.Equals(cat)).ToList());
+                return Ok(_context.Sub_Categoria.Where(o => o.Id_cat == cat).ToList());
             }
             catch (Exception ex)
             {
@@ -66,7 +66,7 @@ namespace ApiValhalla.Controllers
         {
             try
             {
-                var orden = _context.SubCategoria.Max(o => o.Id_subcat);
+                var orden = _context.Sub_Categoria.Max(o => o.Id_subcat);
                 return Ok(orden);
             }
             catch (Exception ex)
@@ -97,7 +97,7 @@ namespace ApiValhalla.Controllers
             try
             {
 
-                var orden = _context.SubCategoria.Count();
+                var orden = _context.Sub_Categoria.Count();
                 // var orden = _context.SubCategoria.FromSqlRaw("select count(*) from sub_categoria");
                 return Ok(orden);
             }
@@ -128,7 +128,7 @@ namespace ApiValhalla.Controllers
         {
             try
             {
-                return Ok(_context.SubCategoria.Where(o => o.Id_subcat.Equals(sub)).ToList());
+                return Ok(_context.Sub_Categoria.Where(o => o.Id_subcat.Equals(sub)).ToList());
             }
             catch (Exception ex)
             {
@@ -165,7 +165,7 @@ namespace ApiValhalla.Controllers
         {
             try
             {
-                _context.SubCategoria.Add(datos);
+                _context.Sub_Categoria.Add(datos);
                 _context.SaveChanges();
                 return Ok(datos);
 
@@ -199,7 +199,7 @@ namespace ApiValhalla.Controllers
         {
             try
             {
-                _context.SubCategoria.Update(datos);
+                _context.Sub_Categoria.Update(datos);
                 await _context.SaveChangesAsync();
                 return Ok(datos);
             }

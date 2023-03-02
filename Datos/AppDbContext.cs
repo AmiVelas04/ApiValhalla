@@ -19,9 +19,14 @@ namespace ApiValhalla.Context
         public DbSet<Models.MesaModel> Mesa { get; set; }
         public DbSet<Models.Plati_detaModel> Plati_deta { get; set; }
         public DbSet<Models.PlatilloModel> Platillo { get; set; }
-        public DbSet<Models.RolModel> Rol{ get; set; }
-        public DbSet<Models.Sub_categoriaModel> SubCategoria { get; set; }
-        public DbSet<Models.UsuarioModel>Usuario { get; set; }
+        public DbSet<Models.RolModel> Rol { get; set; }
+        public DbSet<Models.Sub_categoriaModel> Sub_Categoria { get; set; }
+        public DbSet<Models.UsuarioModel> Usuario { get; set; }
+
+        public DbSet<Models.PreparacionModel> Preparacion { get; set; }
+
+        public DbSet<Models.PlatwCat> platwCats { get; set; }   
+
 
 
 

@@ -16,7 +16,7 @@ namespace ApiValhalla.Models
         [MaxLength(8)]
         public string? Telefono { get; set; }
         public string? Dpi { get; set; }
-        public string? Usuario { get; set; }
+        public string? User { get; set; }
         public string? Pass { get; set; }
 
     }
