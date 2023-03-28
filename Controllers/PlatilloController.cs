@@ -127,6 +127,10 @@ namespace ApiValhalla.Controllers
                 return BadRequest(ex);
             }
         }
+
+       
+
+
         //----------------------------------------Guardar------------------------------------------------------------
 
         [HttpPost]

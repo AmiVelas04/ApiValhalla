@@ -30,9 +30,14 @@
     },
     "IIS completo": {
       "commandName": "IIS",
+      "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
+    },
+    "Perfil 1": {
+      "commandName": "Executable",
+      "executablePath": "D:\\DevGeneral\\Escritorio\\Devep\\Velher.exe"
     }
   },
   "$schema": "https://json.schemastore.org/launchsettings.json",
@@ -40,7 +45,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iis": {
-      "applicationUrl": "http://localhost:80",
+      "applicationUrl": "http://api.local",
       "sslPort": 0
     },
     "iisExpress": {

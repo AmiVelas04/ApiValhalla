@@ -63,6 +63,8 @@ namespace Apivalhalla.Controllers
             }
         }
 
+
+
         [HttpGet]
         [Route("PrepByTab/{id:int}")]
         public ActionResult Getprep(int id)
@@ -110,6 +112,44 @@ catch (System.Exception ex)
 }
 }
 
+        [HttpGet]
+        [Route("PrepByone/{idprep:int}")]
+        public ActionResult getPrepbyone(int idprep)
+        {
+            try
+            {
+                var result = _context.Preparacion.Where(o=>o.Id_prep==idprep);
+                return Ok(result);
+            }
+            catch (System.Exception ex)
+            {
+
+                return BadRequest(ex);
+
+            }
+        }
+
+
+
+        [HttpGet]
+        [Route("totprepby/{prep:int}")]
+        public ActionResult Gettotprepby(int prep)
+        {
+            try
+            {
+                var result = _context.Preparacion.Where(c => c.Id_mesa == prep).Sum(e => e.Precio * e.cantidad);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
+
+
+        //----------------------------- grabar --------------------------------------
+
         [HttpPost]
         [Route("AddPrep")]
         public ActionResult addPrep(PreparacionModel datos)
@@ -128,6 +168,29 @@ catch (System.Exception ex)
 
         }
 
+        [HttpPost]
+        [Route("AddPrepV")]
+        public ActionResult addPrepvario(List<PreparacionModel> datos)
+        {
+            try
+            {
+                foreach (var item in datos)
+                {
+                    _context.Preparacion.Add(item);
+                    _context.SaveChanges();
+                }
+                return Ok(datos);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex);
+            }
+
+        }
+
+
+        //---------------------modif -----------------------------------------------
         [HttpPut]
         [Route("UpdPrep")]
         public ActionResult updPrep(PreparacionModel datos)
@@ -145,6 +208,30 @@ catch (System.Exception ex)
             }
 
         }
+
+        [HttpPut]
+        [Route("UpdAllPrep")]
+        public ActionResult updAllPrep(List<PreparacionModel> datos)
+        {
+            try
+            {
+                foreach (var item in datos)
+                {
+                    _context.Preparacion.Update(item);
+                    _context.SaveChanges();
+                }
+                
+                return Ok(true);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex);
+            }
+
+        }
+
+
 
         [HttpPut]
         [Route("UpdAllMesa")]
@@ -171,14 +258,16 @@ catch (System.Exception ex)
 
 
         [HttpDelete]
-        [Route("Del1Prep")]
-        public ActionResult delPrep(PreparacionModel datos)
+        [Route("Del1Prep/{id:int}")]
+        public ActionResult delPrep(int id)
         {
             try
             {
-                _context.Preparacion.Remove(datos);
+                var prepa = new PreparacionModel { Id_prep = id };
+                _context.Preparacion.Attach(prepa);
+                _context.Preparacion.Remove(prepa);
                 _context.SaveChanges();
-                return Ok(datos);
+                return Ok(prepa);
             }
             catch (Exception ex)
             {

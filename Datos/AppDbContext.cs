@@ -26,6 +26,7 @@ namespace ApiValhalla.Context
         public DbSet<Models.PreparacionModel> Preparacion { get; set; }
 
         public DbSet<Models.PlatwCat> platwCats { get; set; }   
+        public DbSet<Models.VentasModel> ventas {get;set;}
 
 
 
