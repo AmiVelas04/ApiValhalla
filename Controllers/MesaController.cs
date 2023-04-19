@@ -1,4 +1,5 @@
-﻿using ApiValhalla.Context;
+﻿using System.Globalization;
+using ApiValhalla.Context;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,7 +20,7 @@ namespace ApiValhalla.Controllers
 
         [HttpGet]
         [Route("AllTab")]
-        public ActionResult GetCat()
+        public ActionResult GetMesa()
         {
             try
             {
@@ -30,6 +31,30 @@ namespace ApiValhalla.Controllers
                 return BadRequest(ex);
             }
         }
+
+        [HttpGet]
+        [Route("AllTabwName")]
+        public ActionResult GetMesawNam()
+        {
+            try
+            {
+                var devol = from mesa in _context.Mesa
+                            select new Models.MesaModel
+                            {
+                                Id_mesa = mesa.Id_mesa,
+                                Numero = mesa.Numero,
+                                Ubicacion = mesa.Numero + " - " + mesa.Ubicacion,
+                                Estado = mesa.Estado
+                            };
+                return Ok(devol);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
+
 
 
 

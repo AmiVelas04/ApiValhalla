@@ -1,4 +1,5 @@
 ﻿using ApiValhalla.Context;
+using ApiValhalla.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks.Dataflow;
 
@@ -32,6 +33,8 @@ namespace ApiValhalla.Controllers
                 return BadRequest(ex);
             }
         }
+
+
         [HttpGet]
         [Route("AllPlatwCat")]
         public ActionResult GetAllPlatwCat()
@@ -43,14 +46,14 @@ namespace ApiValhalla.Controllers
                              join scat in _context.Sub_Categoria on plat.Id_subcat equals scat.Id_subcat
                              select new Models.PlatwCat
                              {
-                                 Id_plat= plat.Id_plat,
-                                 Categoria= cat.Nombre,
-                                 Sub_cat=scat.Nombre,
-                                 Nombre=plat.Nombre,
-                                 Descripcion= plat.Descripcion,
-                                 Precio= plat.Precio,
-                                 Activo= plat.Activo,
-                                 Foto= plat.Foto,
+                                 Id_plat = plat.Id_plat,
+                                 Categoria = cat.Nombre,
+                                 Sub_cat = scat.Nombre,
+                                 Nombre = plat.Nombre,
+                                 Descripcion = plat.Descripcion,
+                                 Precio = plat.Precio,
+                                 Activo = plat.Activo,
+                                 Foto = plat.Foto,
                              };
                 return Ok(result);
             }
@@ -59,6 +62,37 @@ namespace ApiValhalla.Controllers
                 return BadRequest(ex);
             }
         }
+
+
+        /* [HttpGet]
+         [Route("PlatwCatbyus/{idus:int}")]
+         public ActionResult GetPlatwCatbyus(int idus)
+         {
+             try
+             {
+                 var result = from plat in _context.Platillo
+                              join cat in _context.Categoria on plat.Id_cat equals cat.Id_cat
+                              join scat in _context.Sub_Categoria on plat.Id_subcat equals scat.Id_subcat
+
+                              select new Models.PlatwCat
+                              {
+                                  Id_plat = plat.Id_plat,
+                                  Categoria = cat.Nombre,
+                                  Sub_cat = scat.Nombre,
+                                  Nombre = plat.Nombre,
+                                  Descripcion = plat.Descripcion,
+                                  Precio = plat.Precio,
+                                  Activo = plat.Activo,
+                                  Foto = plat.Foto,
+                              };
+                 return Ok(result);
+             }
+             catch (System.Exception ex)
+             {
+                 return BadRequest(ex);
+             }
+         }*/
+
 
 
         [HttpGet]
@@ -111,6 +145,26 @@ namespace ApiValhalla.Controllers
         }
 
         [HttpGet]
+        [Route("IdPlatbyIdprep/{id:int}")]
+        public ActionResult getidplatbyplatperp(int id)
+        {
+            try
+            {
+                var orden = (from exto in _context.Preparacion
+                             where exto.Id_prep == (id)
+                             select exto).FirstOrDefault().Id_plat;
+                // string idplat= orden.ToString();
+                return Ok(orden);
+
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet]
         [Route("Platby/{cat}/{scat}")]
         public ActionResult Getplatby(int cat, int scat)
         {
@@ -119,6 +173,7 @@ namespace ApiValhalla.Controllers
                 var result = from plati in _context.Platillo
                              join cate in _context.Categoria on plati.Id_cat equals cate.Id_cat
                              join scate in _context.Sub_Categoria on plati.Id_subcat equals scate.Id_subcat
+                             where plati.Id_cat == cat && plati.Id_subcat == scat
                              select plati;
                 return Ok(result);
             }
@@ -128,7 +183,28 @@ namespace ApiValhalla.Controllers
             }
         }
 
-       
+
+        [HttpGet]
+        [Route("PlatbyCs/{cat:int}/{scat:int}")]
+        public ActionResult GetplatbyCs(int cat, int scat)
+        {
+            try
+            {
+                var result = from plati in _context.Platillo
+                             join cate in _context.Categoria on plati.Id_cat equals cate.Id_cat
+                             join scate in _context.Sub_Categoria on plati.Id_subcat equals scate.Id_subcat
+                             where plati.Id_cat == cat && plati.Id_subcat == scat
+                             select plati;
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
+
+
 
 
         //----------------------------------------Guardar------------------------------------------------------------

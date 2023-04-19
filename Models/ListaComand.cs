@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 
-namespace Apivalhalla.Models
+namespace ApiValhalla.Models
 {
     public class ListaComand
     {

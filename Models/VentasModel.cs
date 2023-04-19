@@ -9,6 +9,7 @@ namespace ApiValhalla.Models
 {
     public class VentasModel
     {
+        [Key]
         public int orden { get; set; }
         public string plato { get; set; }
         public int canti { get; set; }

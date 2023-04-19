@@ -6,6 +6,7 @@ namespace ApiValhalla.Context
     {
         public AppDbContext(DbContextOptions options) : base(options)
         {
+            
         }
         public DbSet<Models.CajaModel> Caja { get; set; }
         public DbSet<Models.CategoriaModel> Categoria { get; set; }

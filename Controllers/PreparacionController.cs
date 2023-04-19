@@ -1,11 +1,13 @@
 
+using System.Data.Common;
+using System.IO.Compression;
 using ApiValhalla.Context;
 using System;
 using Microsoft.AspNetCore.Mvc;
 
 using ApiValhalla.Models;
 
-namespace Apivalhalla.Controllers
+namespace ApiValhalla.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -92,25 +94,55 @@ namespace Apivalhalla.Controllers
             }
         }
 
-[HttpGet]
-[Route("PrepByMes/{id:int}")]
-public ActionResult getPrepMes(int id)
-{
-try
-{
-    var result = from prepa in _context.Preparacion
+
+        [HttpGet]
+        [Route("PrepTabUsu/{id:int}/{usu:int}")]
+        public ActionResult Getprepusu(int id,int usu)
+        {
+            try
+            {
+                var result = from prepa in _context.Preparacion
+                             join plat in _context.Platillo on prepa.Id_plat equals plat.Id_plat
+                             where prepa.Id_mesa.Equals(id) && prepa.Id_usu.Equals(usu)
+                             select new Models.ListaComand
+                             {
+                                 Id_prep = prepa.Id_prep,
+                                 Platillo = plat.Nombre,
+                                 Desc = plat.Descripcion,
+                                 Canti = prepa.cantidad,
+                                 Precio = prepa.Precio,
+                                 Estado = prepa.Estado,
+                                 Notas = prepa.Notas
+                             };
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
+
+
+        [HttpGet]
+        [Route("PrepByMes/{id:int}")]
+        public ActionResult getPrepMes(int id)
+        {
+            try
+            {
+                var result = from prepa in _context.Preparacion
                              join plat in _context.Platillo on prepa.Id_plat equals plat.Id_plat
                              where prepa.Id_mesa.Equals(id)
                              select prepa;
-                             return Ok(result);
-}
-catch (System.Exception ex)
-{
-    
-    return BadRequest(ex);
+                return Ok(result);
+            }
+            catch (System.Exception ex)
+            {
 
-}
-}
+                return BadRequest(ex);
+
+            }
+        }
 
         [HttpGet]
         [Route("PrepByone/{idprep:int}")]
@@ -118,7 +150,7 @@ catch (System.Exception ex)
         {
             try
             {
-                var result = _context.Preparacion.Where(o=>o.Id_prep==idprep);
+                var result = _context.Preparacion.Where(o => o.Id_prep == idprep);
                 return Ok(result);
             }
             catch (System.Exception ex)
@@ -220,7 +252,7 @@ catch (System.Exception ex)
                     _context.Preparacion.Update(item);
                     _context.SaveChanges();
                 }
-                
+
                 return Ok(true);
             }
             catch (Exception ex)
@@ -241,10 +273,10 @@ catch (System.Exception ex)
             {
                 foreach (var item in datos)
                 {
-                        _context.Preparacion.Update(item);
-                _context.SaveChanges();
+                    _context.Preparacion.Update(item);
+                    _context.SaveChanges();
                 }
-            
+
                 return Ok(datos);
             }
             catch (Exception ex)
@@ -271,11 +303,37 @@ catch (System.Exception ex)
             }
             catch (Exception ex)
             {
-
-                return BadRequest(ex);
+                return BadRequest(ex + "Estado =" + id);
             }
 
 
+        }
+
+        [HttpDelete]
+        [Route("DelAllPrep/{id:int}")]
+        public ActionResult DellallPrep(int id)
+        {
+            try
+            {
+                var tuplas = _context.Preparacion.Where(x => x.Id_mesa == id);
+                string contenido = "";
+                //return Ok(tuplas.ToList());
+                foreach (var item in tuplas)
+                {
+                    var valor = new PreparacionModel { Id_prep = item.Id_prep };
+                    contenido = (contenido + " - " + item.Id_prep.ToString());
+                    //  _context.Preparacion.Attach(valor);
+
+                    //_context.Preparacion.Remove(valor);
+                    //_context.SaveChanges();
+                }
+                return Ok(contenido);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex);
+            }
         }
 
 
