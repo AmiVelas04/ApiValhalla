@@ -6,7 +6,7 @@ namespace ApiValhalla.Context
     {
         public AppDbContext(DbContextOptions options) : base(options)
         {
-            
+
         }
         public DbSet<Models.CajaModel> Caja { get; set; }
         public DbSet<Models.CategoriaModel> Categoria { get; set; }
@@ -26,8 +26,12 @@ namespace ApiValhalla.Context
 
         public DbSet<Models.PreparacionModel> Preparacion { get; set; }
 
-        public DbSet<Models.PlatwCat> platwCats { get; set; }   
-        public DbSet<Models.VentasModel> ventas {get;set;}
+        public DbSet<Models.PlatwCat> platwCats { get; set; }
+        public DbSet<Models.VentasModel> ventas { get; set; }
+
+        public DbSet<Models.ProductoModel> Producto { get; set; }
+public DbSet<Models.Plati_ProdModel>Plati_Prod{get;set;}
+
 
 
 

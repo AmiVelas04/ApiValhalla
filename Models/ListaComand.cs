@@ -12,6 +12,7 @@ namespace ApiValhalla.Models
         [Key]
 
         public int Id_prep { get; set; }
+        public int Id_plat { get; set; }
         public string? Platillo { get; set; }
         public string? Desc { get; set; }
         public int Canti { get; set; }

@@ -19,8 +19,9 @@ namespace ApiValhalla.Clases
             // List<Models.Orden> Resp = new List<Models.Orden>();
             List<ApiValhalla.Models.VentasModel> carca = new List<ApiValhalla.Models.VentasModel>();
 
+
             string fi = fechai + " 00:00:00";
-            string ff = fechaf + "23:59:59";
+            string ff = fechaf + " 23:59:59";
             try
             {
 
@@ -30,10 +31,28 @@ namespace ApiValhalla.Clases
                                "inner join PLATILLO pl on pl.ID_PLAT= dc.id_plat " +
                                "inner join COMA_USU cu on cu.ID_COMANDA= co.ID_COMANDA " +
                                "inner join USUARIO us on us.ID_USU= cu.ID_USU " +
-                               "where co.FECHA<='" + fi + "' and co.FECHA>='" + ff + "'";
+                               "where co.FECHA>='" + fi + "' and co.FECHA<='" + ff + "'";
 
                 var estado = _context.ventas.FromSqlRaw(query).ToList();
                 return estado.ToList();
+            }
+            catch (System.Exception ex)
+            {
+                return carca;
+                // return reo;
+            }
+
+        }
+
+        public List<ApiValhalla.Models.ProductoModel> AllProd()
+        {
+            // List<Models.Orden> Resp = new List<Models.Orden>();
+            List<ApiValhalla.Models.ProductoModel> carca = new List<ApiValhalla.Models.ProductoModel>();
+            try
+            {
+                var prod = _context.Producto.ToList();
+                carca = prod;
+                return carca;
             }
             catch (System.Exception ex)
             {

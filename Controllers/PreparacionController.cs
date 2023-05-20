@@ -79,6 +79,36 @@ namespace ApiValhalla.Controllers
                              select new Models.ListaComand
                              {
                                  Id_prep = prepa.Id_prep,
+                                 Id_plat = prepa.Id_plat,
+                                 Platillo = plat.Nombre,
+                                 Desc = plat.Descripcion,
+                                 Canti = prepa.cantidad,
+                                 Precio = prepa.Precio,
+                                 Estado = prepa.Estado,
+                                 Notas = prepa.Notas
+                             };
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet]
+        [Route("PrepByUsuRead/{id:int}")]
+        public ActionResult GetprepReadUsu(int id)
+        {
+            try
+            {
+                var result = from prepa in _context.Preparacion
+                             join plat in _context.Platillo on prepa.Id_plat equals plat.Id_plat
+                             where prepa.Id_usu.Equals(id) && prepa.Estado.Equals("Listo")
+                             orderby prepa.Fecha ascending
+                             select new Models.ListaComand
+                             {
+                                 Id_prep = prepa.Id_prep,
+                                 Id_plat = prepa.Id_mesa,
                                  Platillo = plat.Nombre,
                                  Desc = plat.Descripcion,
                                  Canti = prepa.cantidad,
@@ -97,7 +127,7 @@ namespace ApiValhalla.Controllers
 
         [HttpGet]
         [Route("PrepTabUsu/{id:int}/{usu:int}")]
-        public ActionResult Getprepusu(int id,int usu)
+        public ActionResult Getprepusu(int id, int usu)
         {
             try
             {
@@ -107,6 +137,7 @@ namespace ApiValhalla.Controllers
                              select new Models.ListaComand
                              {
                                  Id_prep = prepa.Id_prep,
+                                 Id_plat = prepa.Id_plat,
                                  Platillo = plat.Nombre,
                                  Desc = plat.Descripcion,
                                  Canti = prepa.cantidad,
@@ -170,6 +201,84 @@ namespace ApiValhalla.Controllers
             try
             {
                 var result = _context.Preparacion.Where(c => c.Id_mesa == prep).Sum(e => e.Precio * e.cantidad);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet]
+        [Route("prepbycat/{cat:int}")]
+        public ActionResult GetPrepbycat(int cat)
+        {
+            try
+            {
+                var result = from Prepa in _context.Preparacion
+                             join plat in _context.Platillo on Prepa.Id_plat equals plat.Id_plat
+                             where plat.Id_cat.Equals(cat) && Prepa.Estado.Equals("Preparando")
+                             orderby Prepa.Fecha ascending
+                             select new ListaComand
+                             { 
+                             Id_plat= Prepa.Id_mesa,
+                             Id_prep= Prepa.Id_prep,
+                             Platillo=plat.Nombre ,
+                             Desc= plat.Descripcion,
+                             Canti= Prepa.cantidad,
+                             Precio= plat.Precio,
+                             Estado=Prepa.Estado,
+                             Notas=Prepa.Notas
+
+                             };// _context.Preparacion.Where(c => c.Id_mesa == prep).Sum(e => e.Precio * e.cantidad);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet]
+        [Route("preprawbycat/{cat:int}")]
+        public ActionResult GetPrepRawbycat(int cat)
+        {
+            try
+            {
+                var result = from Prepa in _context.Preparacion
+                             join plat in _context.Platillo on Prepa.Id_plat equals plat.Id_plat
+                             where plat.Id_cat.Equals(cat) && Prepa.Estado.Equals("Preparando")
+                             select Prepa;
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet]
+        [Route("mesaPrepid/{id:int}")]
+        public ActionResult Getmesaprepid(int id)
+        {
+            try
+            {
+                var result = (from ex in _context.Preparacion where ex.Id_prep == id select ex).First().Id_mesa;
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet]
+        [Route("FechaPrepid/{id:int}")]
+        public ActionResult Getfechaprepid(int id)
+        {
+            try
+            {
+                var result = (from ex in _context.Preparacion where ex.Id_prep == id select ex).First().Fecha.Value.ToString("yyyy/MM/dd HH:mm:ss");
                 return Ok(result);
             }
             catch (Exception ex)

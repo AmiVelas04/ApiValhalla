@@ -7,6 +7,7 @@ namespace ApiValhalla.Models
         [Key]
 
         public int Id_deta { get; set; }
+        public int id_plat { get; set; }
         public int Cantidad { get; set; }
         public decimal Precio { get; set; }
         public string? Estado { get; set; }

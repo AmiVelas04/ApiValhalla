@@ -13,5 +13,6 @@ namespace ApiValhalla.Models
         public decimal Precio { get; set; }
         public string? Notas { get; set; }
         public string? Estado { get; set; }
+        public DateTime? Fecha { get; set; }  
     }
 }

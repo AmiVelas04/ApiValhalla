@@ -145,6 +145,24 @@ namespace ApiValhalla.Controllers
         }
 
         [HttpGet]
+        [Route("CountPlatTab/{mesa:int}")]
+        public ActionResult GetPlatPrepabyTab(int mesa)
+        {
+            try
+            {
+                var orden = _context.Preparacion.Where(o=>o.Id_mesa==mesa && o.Estado== "Preparando").Count();
+                return Ok(orden);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
+
+
+
+        [HttpGet]
         [Route("IdPlatbyIdprep/{id:int}")]
         public ActionResult getidplatbyplatperp(int id)
         {
@@ -202,6 +220,22 @@ namespace ApiValhalla.Controllers
                 return BadRequest(ex);
             }
         }
+
+        [HttpGet]
+        [Route("NomPlatid/{id:int}")]
+        public ActionResult Getnombyidplat(int id)
+        {
+            try
+            {
+                var result = (from ex in _context.Platillo where ex.Id_plat == id select ex).First().Nombre;
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
 
 
 

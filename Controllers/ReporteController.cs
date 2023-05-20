@@ -10,14 +10,17 @@ namespace ApiValhalla.Controllers
     [ApiController]
     public class ReporteController : ControllerBase
     {
-        DatosRep datos;
+
         private readonly AppDbContext _context;
 
+        DatosRep datos;
 
         public ReporteController(AppDbContext context)
         {
             this._context = context;
+            datos = new DatosRep(_context);
         }
+
 
         [HttpGet]
         [Route("ventasperi/{fi}/{ff}")]
@@ -26,7 +29,6 @@ namespace ApiValhalla.Controllers
             List<Models.VentasModel> recep = new List<Models.VentasModel>();
             try
             {
-
                 recep = datos.ventasPeriodo(fi, ff);
                 return recep.ToList();
             }
@@ -35,6 +37,24 @@ namespace ApiValhalla.Controllers
                 return (recep);
             }
         }
+
+        [HttpGet]
+        [Route("Allprodu")]
+        public List<Models.ProductoModel> Allprodu()
+        {
+            List<Models.ProductoModel> recep = new List<Models.ProductoModel>();
+            try
+            {
+                recep = datos.AllProd();
+                return recep.ToList();
+            }
+            catch (Exception ex)
+            {
+                return (recep);
+            }
+        }
+
+
 
     }
 }

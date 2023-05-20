@@ -134,6 +134,24 @@ namespace ApiValhalla.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("SaveComUsu")]
+        public ActionResult SaveComandUsu(Models.Coma_usuModel datos)
+        {
+            try
+            {
+                _context.Coma_usu.Add(datos);
+                _context.SaveChanges();
+
+                return Ok(datos);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex);
+            }
+        }
+
 
 
 

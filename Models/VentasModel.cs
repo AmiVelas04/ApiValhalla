@@ -10,12 +10,12 @@ namespace ApiValhalla.Models
     public class VentasModel
     {
         [Key]
-        public int orden { get; set; }
-        public string plato { get; set; }
-        public int canti { get; set; }
-        public decimal precio { get; set; }
-        public decimal subt { get; set; }
-        public string mesero { get; set; }
-        public string mesa { get; set; }
+        public int Id_comanda { get; set; }
+        public string? Nombre { get; set; }
+        public string? Plato { get; set; }
+        public int Cantidad { get; set; }
+        public decimal Precio { get; set; }
+        public decimal Subtotal { get; set; }
+
     }
 }
