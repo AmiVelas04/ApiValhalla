@@ -44,7 +44,8 @@ internal class Program
         }
 
         app.UseCors("NUXT");
-        app.UseHttpsRedirection();
+       app.UseHttpsRedirection();
+       //app.UseHttpLogging();
 
         app.UseAuthorization();
 

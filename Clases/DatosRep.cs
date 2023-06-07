@@ -13,18 +13,15 @@ namespace ApiValhalla.Clases
         {
             this._context = context;
         }
-
+         
         public List<ApiValhalla.Models.VentasModel> ventasPeriodo(string fechai, string fechaf)
         {
             // List<Models.Orden> Resp = new List<Models.Orden>();
             List<ApiValhalla.Models.VentasModel> carca = new List<ApiValhalla.Models.VentasModel>();
-
-
             string fi = fechai + " 00:00:00";
             string ff = fechaf + " 23:59:59";
             try
             {
-
                 string query = "select co.ID_COMANDA,us.NOMBRE,(concat(pl.NOMBRE,', ',pl.DESCRIPCION)) as plato,dc.CANTIDAD,dc.PRECIO, (dc.CANTIDAD*dc.PRECIO) as subtotal from COMANDA co " +
                                "inner join COMAND_DETA cd on co.ID_COMANDA=cd.ID_COMANDA " +
                                "inner JOIN DETALLECOM dc on dc.ID_DETA= cd.ID_DETA " +
@@ -41,7 +38,6 @@ namespace ApiValhalla.Clases
                 return carca;
                 // return reo;
             }
-
         }
 
         public List<ApiValhalla.Models.ProductoModel> AllProd()

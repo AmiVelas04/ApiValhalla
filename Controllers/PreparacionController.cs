@@ -240,6 +240,36 @@ namespace ApiValhalla.Controllers
         }
 
         [HttpGet]
+        [Route("prepbyTabCocina/{tab:int}")]
+        public ActionResult GetPrepbyTabCocinacat(int tab)
+        {
+            try
+            {
+                var result = from Prepa in _context.Preparacion
+                             join plat in _context.Platillo on Prepa.Id_plat equals plat.Id_plat
+                             where (plat.Id_cat.Equals(1) || plat.Id_cat.Equals(1)) && Prepa.Estado.Equals("Preparando") && Prepa.Id_mesa.Equals(tab)
+                             orderby Prepa.Fecha ascending
+                             select new ListaComand
+                             {
+                                 Id_plat = Prepa.Id_mesa,
+                                 Id_prep = Prepa.Id_prep,
+                                 Platillo = plat.Nombre,
+                                 Desc = plat.Descripcion,
+                                 Canti = Prepa.cantidad,
+                                 Precio = plat.Precio,
+                                 Estado = Prepa.Estado,
+                                 Notas = Prepa.Notas
+
+                             };// _context.Preparacion.Where(c => c.Id_mesa == prep).Sum(e => e.Precio * e.cantidad);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet]
         [Route("preprawbycat/{cat:int}")]
         public ActionResult GetPrepRawbycat(int cat)
         {
