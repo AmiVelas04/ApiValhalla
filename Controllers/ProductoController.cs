@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ApiValhalla.Context;
 using ApiValhalla.Models;
 
-namespace Apivalhalla.Controllers
+namespace ApiValhalla.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

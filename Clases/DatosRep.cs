@@ -13,11 +13,11 @@ namespace ApiValhalla.Clases
         {
             this._context = context;
         }
-         
-        public List<ApiValhalla.Models.VentasModel> ventasPeriodo(string fechai, string fechaf)
+
+        public List<ApiValhalla.Models.ComandaModel> ventasPeriodo(string fechai, string fechaf)
         {
             // List<Models.Orden> Resp = new List<Models.Orden>();
-            List<ApiValhalla.Models.VentasModel> carca = new List<ApiValhalla.Models.VentasModel>();
+            List<ApiValhalla.Models.ComandaModel> carca = new List<ApiValhalla.Models.ComandaModel>();
             string fi = fechai + " 00:00:00";
             string ff = fechaf + " 23:59:59";
             try
@@ -30,8 +30,8 @@ namespace ApiValhalla.Clases
                                "inner join USUARIO us on us.ID_USU= cu.ID_USU " +
                                "where co.FECHA>='" + fi + "' and co.FECHA<='" + ff + "'";
 
-                var estado = _context.ventas.FromSqlRaw(query).ToList();
-                return estado.ToList();
+                var estado = _context.Comanda.FromSqlRaw(query).ToList();
+                return estado;
             }
             catch (System.Exception ex)
             {

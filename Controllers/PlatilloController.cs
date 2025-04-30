@@ -150,7 +150,7 @@ namespace ApiValhalla.Controllers
         {
             try
             {
-                var orden = _context.Preparacion.Where(o=>o.Id_mesa==mesa && o.Estado== "Preparando").Count();
+                var orden = _context.Preparacion.Where(o => o.Id_mesa == mesa && o.Estado == "Preparando").Count();
                 return Ok(orden);
             }
             catch (Exception ex)
@@ -191,7 +191,7 @@ namespace ApiValhalla.Controllers
                 var result = from plati in _context.Platillo
                              join cate in _context.Categoria on plati.Id_cat equals cate.Id_cat
                              join scate in _context.Sub_Categoria on plati.Id_subcat equals scate.Id_subcat
-                             where plati.Id_cat == cat && plati.Id_subcat == scat
+                             where plati.Id_cat == cat && plati.Id_subcat == scat && plati.Activo.Equals(true)
                              select plati;
                 return Ok(result);
             }
@@ -205,6 +205,25 @@ namespace ApiValhalla.Controllers
         [HttpGet]
         [Route("PlatbyCs/{cat:int}/{scat:int}")]
         public ActionResult GetplatbyCs(int cat, int scat)
+        {
+            try
+            {
+                var result = from plati in _context.Platillo
+                             join cate in _context.Categoria on plati.Id_cat equals cate.Id_cat
+                             join scate in _context.Sub_Categoria on plati.Id_subcat equals scate.Id_subcat
+                             where plati.Id_cat == cat && plati.Id_subcat == scat && plati.Activo.Equals(true)
+                             select plati;
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet]
+        [Route("PlatAllBy/{cat}/{scat}")]
+        public ActionResult GetAllPlatBy(int cat, int scat)
         {
             try
             {

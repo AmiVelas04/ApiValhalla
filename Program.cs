@@ -1,10 +1,8 @@
 using ApiValhalla.Context;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
-using Newtonsoft.Json;
-using System.Text.Json.Serialization;
-
+using ApiValhalla.Hubs;
+using Microsoft.AspNetCore.Routing.Patterns;
 
 internal class Program
 {
@@ -16,7 +14,7 @@ internal class Program
 
 
         builder.Services.AddControllers();
-
+        builder.Services.AddSignalR();
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen(c =>
         {
@@ -30,11 +28,6 @@ internal class Program
 
         builder.Services.AddCors(o => o.AddPolicy("NUXT", builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
 
-    
-
-
-
-
         var app = builder.Build();
 
         if (app.Environment.IsDevelopment())
@@ -45,10 +38,16 @@ internal class Program
 
         app.UseCors("NUXT");
        app.UseHttpsRedirection();
-       //app.UseHttpLogging();
-
+       
+        app.UseRouting();
         app.UseAuthorization();
+        /*  app.UseSignalR(routes.MapHub<Notifications>("notif"));
+          app.UseEndpoints(endpoints => {
+              endpoints.MapHub<Notifications>("notif");
+          });*/
 
+        app.MapHub<Notifications>("/notif");
+      
         app.MapControllers();
 
         app.Run();

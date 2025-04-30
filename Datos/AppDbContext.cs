@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ApiValhalla.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ApiValhalla.Context
 {
@@ -25,12 +26,15 @@ namespace ApiValhalla.Context
         public DbSet<Models.UsuarioModel> Usuario { get; set; }
 
         public DbSet<Models.PreparacionModel> Preparacion { get; set; }
+        public DbSet<Models.ProdganopedetaModel> Prodganopedeta { get; set; }
+        public DbSet<Models.ProduganopeModel> Produganope { get; set; }
+        public DbSet<ProductoganModel> Productogan { get; set; }
 
         public DbSet<Models.PlatwCat> platwCats { get; set; }
         public DbSet<Models.VentasModel> ventas { get; set; }
 
         public DbSet<Models.ProductoModel> Producto { get; set; }
-public DbSet<Models.Plati_ProdModel>Plati_Prod{get;set;}
+        public DbSet<Models.Plati_ProdModel> Plati_Prod { get; set; }
 
 
 
